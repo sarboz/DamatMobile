@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BaseContentPage x:TypeArguments="viewModels:LoginViewModel"
+                              forms:NavigationPage.HasNavigationBar="False"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:forms="http://xamarin.com/schemas/2014/forms"
+                              xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+                              xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+                              xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+                              x:Class="DamatMobile.Ui.Views.LoginPage"
+                              BackgroundColor="{forms:StaticResource PageBackgroundColor}"
+                              x:DataType="viewModels:LoginViewModel">
+    <forms:ScrollView>
+        <forms:Grid RowDefinitions="*,*,*" Margin="20">
+            <forms:Image Aspect="AspectFit" Source="icon" HeightRequest="150" />
+            <forms:StackLayout forms:Grid.Row="1" Margin="0,30,0,0">
+                <forms:Frame Margin="20,0,20,0" HasShadow="False" Padding="0" CornerRadius="5" BorderColor="#D8D8D8">
+                    <forms:StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="0">
+                        <forms:Label Text="+992" VerticalTextAlignment="Center" />
+                        <forms:Entry HeightRequest="50" HorizontalTextAlignment="Start" Keyboard="Telephone"
+                                     Text="{forms:Binding Phone.Value}" Placeholder="введите номер телефона">
+                            <forms:Entry.Behaviors>
+                                <behaviors:MaskedBehavior Mask="AA-AAA-AA-AA" UnMaskedCharacter="A" />
+                            </forms:Entry.Behaviors>
+                        </forms:Entry>
+                    </forms:StackLayout>
+                </forms:Frame>
+                <forms:Label Text="{forms:Binding Phone.Error}" TextColor="Red"></forms:Label>
+                <forms:Button  WidthRequest="100" Command="{forms:Binding SubmitCommand}" Text="Отправить" />
+            </forms:StackLayout>
+            <forms:StackLayout forms:Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="Center">
+                <forms:Label Text="© 2022 Armugon" />
+            </forms:StackLayout>
+        </forms:Grid>
+    </forms:ScrollView>
+</abstractions:BaseContentPage>

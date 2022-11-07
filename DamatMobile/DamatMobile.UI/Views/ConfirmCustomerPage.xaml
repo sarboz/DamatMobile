@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions1:BaseContentPage x:TypeArguments="viewModels1:ConfirmCustomerViewModel"
+                              xmlns="http://xamarin.com/schemas/2014/forms"
+                              NavigationPage.HasNavigationBar="False"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                                                xmlns:behaviors="http://xamarin.com/schemas/2020/toolkit"
+                              xmlns:abstractions1="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+                              xmlns:viewModels1="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+                              x:DataType="viewModels1:ConfirmCustomerViewModel"
+                              BackgroundColor="{StaticResource PageBackgroundColor}"
+                              x:Class="DamatMobile.Ui.Views.ConfirmCustomerPage">
+    <Grid RowDefinitions="*,auto,*" Margin="30">
+        <Image Aspect="AspectFit" Source="icon" HeightRequest="150" />
+        <StackLayout Grid.Row="1" Margin="30">
+            <Label HorizontalTextAlignment="Center" FontSize="18" FontAttributes="Bold">Введите код из SMS</Label>
+            <Entry x:Name="CodeEntry" Keyboard="Numeric" HeightRequest="60" TextColor="White" FontSize="30"  HorizontalTextAlignment="Center"  Text="{Binding Code}">
+                <Entry.Behaviors>
+                    <behaviors:MaskedBehavior Mask="AAAA" UnMaskedCharacter="A" />
+                </Entry.Behaviors>
+            </Entry>
+            <Button Command="{Binding ConfirmCodeCommand}" Text="Вход" />
+        </StackLayout>
+        <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="Center">
+            <Label Text="© 2022 Armugon" />
+        </StackLayout>
+    </Grid>
+
+</abstractions1:BaseContentPage>

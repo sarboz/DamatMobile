@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BaseContentPage x:TypeArguments="viewModels:NotificationViewModel"
+                              xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+                              xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+                              xmlns:resources1="clr-namespace:DamatMobile.Ui.Resources;assembly=DamatMobile.UI"
+                              xmlns:dtos="clr-namespace:DamatMobile.Core.Dtos;assembly=DamatMobile.Core"
+                              x:DataType="viewModels:NotificationViewModel"
+                              Title="Уведомление"
+                              NavigationPage.HasNavigationBar="false"
+                              BackgroundColor="{StaticResource PageBackgroundColor}"
+                                x:Class="DamatMobile.Ui.Views.NotificationPage">
+    <StackLayout>
+        <StackLayout HeightRequest="70" Orientation="Horizontal">
+            <StackLayout.Margin>
+                <OnPlatform x:TypeArguments="Thickness">
+                    <On Platform="iOS">
+                        <Thickness>
+                            <Thickness.Top>25</Thickness.Top>
+                        </Thickness>
+                    </On>
+                </OnPlatform>
+            </StackLayout.Margin>
+            <ImageButton Command="{Binding BackCommand}" VerticalOptions="Center" HorizontalOptions="Start"
+                         Padding="10" BackgroundColor="Transparent">
+                <Image.Source>
+                    <FontImageSource Color="White"
+                                     Glyph="{x:Static resources1:MaterialIcons.ArrowLeft}"
+                                     Size="Large"
+                                     FontFamily="{StaticResource MaterialFontFamily}" />
+                </Image.Source>
+            </ImageButton>
+            <Label VerticalOptions="Center" HorizontalOptions="Start" Text="Уведомление" FontSize="20"
+                   TextColor="White" />
+        </StackLayout>
+        <Grid>
+            <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsLoading}"
+                               Margin="0,15,0,0"
+                               VerticalOptions="Center" />
+            <CollectionView ItemsSource="{Binding NotificationModels}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout x:DataType="dtos:NotificationDto">
+                            <Frame CornerRadius="8" Margin="8" Padding="10" BackgroundColor="#90c7f0">
+                                <StackLayout>
+                                    <Label FontSize="17" Padding="5,0,0,0" Text="{Binding Title}" FontAttributes="Bold"
+                                           TextColor="Black" />
+                                    <Label FontSize="16" Text="{Binding Message}" />
+                                </StackLayout>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+    </StackLayout>
+</abstractions:BaseContentPage>

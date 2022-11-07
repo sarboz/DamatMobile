@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ResourceDictionary
+    mc:Ignorable="d"
+    x:Class="DamatMobile.Ui.Resources.Styles"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="PrimaryColor">#0078c4</Color>
+    <Color x:Key="PrimaryDarkColor">#004d93</Color>
+    <Color x:Key="PrimaryLightColor">#2196f3</Color>
+
+    <Color x:Key="SecondaryColor">#77bd27</Color>
+    <Color x:Key="SecondaryDarkColor">#438c00</Color>
+    <Color x:Key="SecondaryLightColor">#aaf05c</Color>
+
+    <Color x:Key="PrimaryTextColor">#ffffff</Color>
+
+    <Color x:Key="SecondaryTextColor">#000000</Color>
+    <Color x:Key="PlaceholderTextColor">#BDBDBD</Color>
+
+    <Color x:Key="InformationColor">#0199CB</Color>
+    <Color x:Key="WarningColor">#FF8602</Color>
+    <Color x:Key="ErrorColor">#ff0000</Color>
+    <Color x:Key="PageBackgroundColor">#263251</Color>
+
+    <OnPlatform x:TypeArguments="Color" x:Key="TitleTextColor">
+        <On Platform="Android">White</On>
+        <On Platform="iOS">Black</On>
+    </OnPlatform>
+
+    <x:Int32 x:Key="CornerRadiusAndroid">30</x:Int32>
+    <x:Int32 x:Key="CornerRadiusIos">16</x:Int32>
+    <Color x:Key="BorderColor">#D8D8D8</Color>
+    <x:String x:Key="MaterialFontFamily">materialIcons</x:String>
+
+    <Style TargetType="Label">
+        <Setter Property="FontSize" Value="Small" />
+        <Setter Property="FontFamily" Value="Charter"></Setter>
+        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+    </Style>
+    <Style TargetType="Entry">
+        <Setter Property="HeightRequest" Value="40"></Setter>    
+        <Setter Property="Margin" Value="5,0,0,0"></Setter>    
+        <Setter Property="FontFamily" Value="Lobster" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+    </Style>
+
+    <Style TargetType="Label" x:Key="ValidationErrorStyle">
+        <Setter Property="FontSize" Value="Small" />
+        <Setter Property="TextColor" Value="{StaticResource ErrorColor}" />
+    </Style>
+
+    <OnPlatform x:Key="IconSize" x:TypeArguments="x:Double">
+        <On Platform="Android" Value="25" />
+        <On Platform="iOS" Value="18" />
+    </OnPlatform>
+
+    <Style TargetType="ScrollView">
+        <Setter Property="VerticalScrollBarVisibility" Value="Never" />
+    </Style>
+
+    <Style TargetType="ActivityIndicator">
+        <Setter Property="HeightRequest">
+            <OnPlatform x:TypeArguments="x:Double">
+                <On Platform="iOS" Value="20" />
+                <On Platform="Android" Value="35" />
+            </OnPlatform>
+        </Setter>
+    </Style>
+    <Style TargetType="Editor">
+        <Setter Property="TextColor" Value="{StaticResource SecondaryTextColor}" />
+    </Style>
+    <Style TargetType="FontImageSource">
+        <Setter Property="Size">
+            <OnPlatform x:TypeArguments="NamedSize">
+                <On Platform="Android" Value="Medium" />
+                <On Platform="iOS" Value="Small" />
+            </OnPlatform>
+        </Setter>
+    </Style>
+    <x:Double x:Key="TitleFontSize">
+
+    </x:Double>
+</ResourceDictionary>

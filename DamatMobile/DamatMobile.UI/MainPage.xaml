@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions1:BaseTabbedPage x:Class="DamatMobile.Ui.MainPage" x:TypeArguments="viewModels:MainViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                             xmlns:androidSpecific="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+                             xmlns:abstractions1="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+                             xmlns:views="clr-namespace:DamatMobile.Ui.Views;assembly=DamatMobile.UI"
+                             xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+                             androidSpecific:TabbedPage.ToolbarPlacement="Bottom">
+    <abstractions1:BaseTabbedPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="FontImageSource">
+                <Setter Property="Color" Value="Accent"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </abstractions1:BaseTabbedPage.Resources>
+    <TabbedPage.Children>
+        <views:HomePage>
+            <!-- <views:HomePage.IconImageSource> -->
+            <!--     <FontImageSource FontFamily="{StaticResource MaterialFontFamily}" -->
+            <!--                      Glyph="{x:Static resources:MaterialIcons.HomeOutline}"  -->
+            <!--     /> -->
+            <!-- </views:HomePage.IconImageSource> -->
+        </views:HomePage>
+    </TabbedPage.Children>
+</abstractions1:BaseTabbedPage>

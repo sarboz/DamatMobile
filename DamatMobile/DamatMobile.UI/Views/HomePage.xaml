@@ -1,0 +1,329 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BaseContentPage
+    BindingContext="{Binding HomeViewModel,Source={StaticResource ViewModelLocator}}"
+    x:DataType="viewModels:HomeViewModel"
+    x:Name="This"
+    BackgroundColor="{StaticResource PageBackgroundColor}"
+    NavigationPage.HasNavigationBar="False"
+    x:TypeArguments="viewModels:HomeViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+   xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    xmlns:common="clr-namespace:ZXing.Common;assembly=zxing.portable"
+    xmlns:forms1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+        xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+        xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+        xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+        xmlns:converters="clr-namespace:DamatMobile.Ui.Converters;assembly=DamatMobile.UI"
+        xmlns:controls="clr-namespace:DamatMobile.Ui.Controls;assembly=DamatMobile.UI"
+        xmlns:models="clr-namespace:DamatMobile.Core.Models;assembly=DamatMobile.Core"
+        xmlns:resources1="clr-namespace:DamatMobile.Ui.Resources;assembly=DamatMobile.UI"
+        x:Class="DamatMobile.Ui.Views.HomePage">
+    <abstractions:BaseContentPage.Resources>
+        <ResourceDictionary>
+            <converters:UsernameFirstLaterConverter x:Key="UsernameFirstLaterConverter" />
+        </ResourceDictionary>
+    </abstractions:BaseContentPage.Resources>
+    <ScrollView Orientation="Vertical">
+        <ScrollView.Padding>
+            <OnPlatform x:TypeArguments="Thickness">
+                <On Platform="iOS">
+                    <Thickness>
+                        <Thickness.Top>5</Thickness.Top>
+                    </Thickness>
+                </On>
+            </OnPlatform>
+        </ScrollView.Padding>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal" Margin="10" HorizontalOptions="FillAndExpand">
+                <Frame CornerRadius="20" HasShadow="False" Padding="10" IsClippedToBounds="True"
+                       WidthRequest="20" BackgroundColor="#1a1a18">
+                    <Label TextColor="White" FontSize="14" VerticalOptions="Center" HorizontalOptions="CenterAndExpand"
+                           Text="{Binding Username, Converter={StaticResource UsernameFirstLaterConverter}}">
+                    </Label>
+                </Frame>
+                <Label VerticalOptions="Center" Text="{Binding Username}" TextColor="White" />
+                <StackLayout Spacing="10" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                    <ImageButton BackgroundColor="Transparent" Command="{Binding NotificationCommand}"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center">
+                        <ImageButton.Source>
+                            <FontImageSource Color="White" Glyph="{x:Static resources1:MaterialIcons.BellRing}"
+                                             Size="Medium"
+                                             FontFamily="{StaticResource MaterialFontFamily}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                    <ImageButton BackgroundColor="Transparent" Command="{Binding LogoutCommand}"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="Center">
+                        <ImageButton.Source>
+                            <FontImageSource Color="White" Glyph="{x:Static resources1:MaterialIcons.Logout}"
+                                             Size="Medium"
+                                             FontFamily="{StaticResource MaterialFontFamily}" />
+                        </ImageButton.Source>
+                    </ImageButton>
+                </StackLayout>
+            </StackLayout>
+            <Grid>
+                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsCardLoading}"
+                                   Margin="0,15,0,0"
+                                   VerticalOptions="Center" />
+                <CarouselView
+                    PeekAreaInsets="20"
+                    Loop="False"
+                    HeightRequest="200"
+                    ItemsSource="{Binding Cards}">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:FlipView
+                                IsFlipped="{Binding Source={x:Reference This}, Path=ViewModel.IsFlipped}">
+                                <controls:FlipView.BackView>
+                                    <Frame BackgroundColor="#04062C" x:DataType="models:VirtualCard" Margin="0"
+                                           Padding="0"
+                                           HasShadow="False" HeightRequest="220"
+                                           CornerRadius="10">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer
+                                                Command="{Binding Path=ViewModel.FlipCommand, Source={x:Reference This}}" />
+                                        </Frame.GestureRecognizers>
+                                        <Grid RowDefinitions="6,*,6" Margin="0">
+                                            <BoxView HeightRequest="6" BackgroundColor="#e2c35f" />
+
+                                            <StackLayout Grid.Row="1" Orientation="Vertical" Spacing="0" Padding="10"
+                                                         HorizontalOptions="Center">
+                                                <StackLayout Orientation="Horizontal">
+                                                    <Label TextType="Html" TextColor="White" LineHeight="0.8"
+                                                           FontSize="10">
+                                                        <![CDATA[
+                                                    Данная карта:<br/>
+                                                        -Не передаётсия третим лицам;<br/>
+                                                        -Не действует на товары со скидкой<br/>
+                                                        *Срок действия карты неограничен!
+                                                    ]]>
+                                                    </Label>
+                                                    <pancakeView:PancakeView VerticalOptions="Center"
+                                                                             HorizontalOptions="EndAndExpand"
+                                                                             Margin="0,0,-10,0" CornerRadius="4,0,4,0"
+                                                                             BackgroundColor="#4e4d4a">
+                                                        <Label FontSize="16" FontAttributes="Bold" Text="GOLD"
+                                                               Padding="4,0,10,0"
+                                                               TextColor="#ddd1a4">
+                                                        </Label>
+                                                    </pancakeView:PancakeView>
+                                                </StackLayout>
+
+                                                <Label TextColor="White" FontAttributes="Bold" FontSize="11"
+                                                       HorizontalTextAlignment="Center"
+                                                       Text="Мебель 5%, Посуда 10%, Текстиль 10%, Люстры 10%, Сувениры 10%.">
+                                                </Label>
+                                                <forms:ZXingBarcodeImageView BarcodeFormat="EAN_13"
+                                                                             BarcodeValue="{Binding Barcode}">
+                                                    <forms:ZXingBarcodeImageView.BarcodeOptions>
+                                                        <common:EncodingOptions Height="200" Width="1000" />
+                                                    </forms:ZXingBarcodeImageView.BarcodeOptions>
+                                                </forms:ZXingBarcodeImageView>
+                                                <Label TextColor="White" Text="{Binding Barcode}" CharacterSpacing="2"
+                                                       FontAttributes="Bold"
+                                                       HorizontalTextAlignment="Center" />
+                                            </StackLayout>
+                                            <BoxView Grid.Row="2" HeightRequest="6" BackgroundColor="#e2c35f" />
+                                        </Grid>
+                                    </Frame>
+                                </controls:FlipView.BackView>
+                                <controls:FlipView.FrontView>
+                                    <Frame CornerRadius="10" Margin="0" Padding="0" HeightRequest="220">
+                                        <Grid x:DataType="models:VirtualCard"
+                                              HorizontalOptions="FillAndExpand"
+                                              VerticalOptions="FillAndExpand">
+                                            <Grid.GestureRecognizers>
+                                                <TapGestureRecognizer
+                                                    Command="{Binding Path=ViewModel.FlipCommand, Source={x:Reference This}}" />
+                                            </Grid.GestureRecognizers>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="25" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="60" />
+                                            </Grid.RowDefinitions>
+                                            <Image Aspect="AspectFill" Source="card_background" Grid.RowSpan="5" />
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Margin="0"
+                                                HorizontalOptions="StartAndExpand"
+                                                VerticalOptions="Start">
+                                                <Label FontSize="50" TextColor="#d2ba6f">GOLD</Label>
+                                            </StackLayout>
+                                            <StackLayout
+                                                Grid.Row="0"
+                                                Margin="0,10,0,0"
+                                                HorizontalOptions="Start"
+                                                VerticalOptions="Start">
+                                                <!-- <Label FontSize="22" Padding="0,10,0,0" Text="GOLD" TextColor="Black"/> -->
+                                            </StackLayout>
+                                            <Label Grid.Row="1"
+                                                   FontSize="24"
+                                                   Margin="0,-20,0,0"
+                                                   LineHeight="0.8"
+                                                   Padding="0" TextColor="#1a1a18"
+                                                   HorizontalOptions="Center"
+                                                   VerticalOptions="Start"
+                                                   Text="Дисконтная карта" />
+                                            <Label Grid.Row="2" Padding="0" TextColor="#1a1a18"
+                                                   FontSize="16"
+                                                   Margin="10,0,0,0"
+                                                   VerticalOptions="Start"
+                                                   HorizontalOptions="Start"
+                                                   Text="{Binding Source={x:Reference This}, Path=ViewModel.Username}" />
+                                            <Label Grid.Row="2" FontSize="16" HorizontalTextAlignment="End"
+                                                   TextColor="#1a1a18"
+                                                   Margin="0,0,10,0"
+                                                   Text="{Binding Barcode, StringFormat='ID: {0}'}" />
+                                            <StackLayout Padding="10,0,10,0" Orientation="Horizontal"
+                                                         Grid.Row="4" BackgroundColor="#05072d"
+                                                         VerticalOptions="Start">
+                                                <Grid ColumnDefinitions="auto,*,1,*,auto">
+                                                    <Image Margin="0" Aspect="AspectFill" Grid.Column="0"
+                                                           HorizontalOptions="StartAndExpand" Source="imperio" />
+                                                    <Grid Margin="0" Grid.Column="1">
+                                                        <Label FontSize="10"
+                                                               HorizontalTextAlignment="End"
+                                                               TextColor="#c5c6c6"
+                                                               Text=" г. Душанбе, ул. Истаравшан 18 Империо" />
+                                                        <Label FontSize="10"
+                                                               HorizontalTextAlignment="End"
+                                                               VerticalTextAlignment="End"
+                                                               TextColor="#c5c6c6"
+                                                               Text="Тел: 555181818" />
+
+                                                    </Grid>
+
+                                                    <BoxView Grid.Column="2" WidthRequest="2" HeightRequest="40"
+                                                             Color="White" />
+                                                    <Grid Grid.Column="3" Margin="0">
+                                                        <Label FontSize="10"
+                                                               HorizontalTextAlignment="Start" TextColor="#c5c6c6"
+                                                               Text="Сеть магазинов Армугон" />
+                                                        <Label FontSize="10" CharacterSpacing="0.1"
+                                                               VerticalTextAlignment="End"
+                                                               HorizontalTextAlignment="Start" TextColor="#c5c6c6"
+                                                               Text="Тел: 927729889" />
+                                                    </Grid>
+                                                    <Image Margin="0" Aspect="AspectFill" Grid.Column="4"
+                                                           HorizontalOptions="EndAndExpand" Source="armugon" />
+                                                </Grid>
+                                            </StackLayout>
+                                        </Grid>
+                                    </Frame>
+                                </controls:FlipView.FrontView>
+                            </controls:FlipView>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </Grid>
+            <StackLayout Margin="0,10,10,0">
+                <Label Padding="10" Text="Товары" TextColor="White" FontSize="Medium" />
+            </StackLayout>
+            <StackLayout HeightRequest="200">
+                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsProductLoading}"
+                                   VerticalOptions="Center" />
+                <CarouselView
+                    Margin="0,-40,0,40"
+                    PeekAreaInsets="80"
+                    Loop="False"
+                    HorizontalScrollBarVisibility="Never"
+                    ItemsSource="{Binding Products}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout SnapPointsType="MandatorySingle" Orientation="Horizontal"
+                                           SnapPointsAlignment="Start" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="10" ColumnSpacing="0">
+                                <pancakeView:PancakeView
+                                    Margin="10" Padding="0" CornerRadius="10"
+                                    BackgroundGradientStartColor="#8691c8"
+                                    BackgroundGradientEndColor="#9ed0f0"
+                                    BackgroundGradientAngle="90">
+                                    <Grid ColumnDefinitions="*,*" RowDefinitions="30,*" x:DataType="models:Product">
+                                        <pancakeView:PancakeView Grid.Column="0" VerticalOptions="Start"
+                                                                 CornerRadius="0,4,0,4" BackgroundColor="White"
+                                                                 Margin="0,10,0,0">
+                                            <Label FontAttributes="Bold" Text="{Binding Name}" TextColor="#1a1a18"
+                                                   Padding="20,0,0,0" />
+                                        </pancakeView:PancakeView>
+                                        <Label Text="{Binding DiscountValue}" FontAttributes="Bold" Padding="10"
+                                               Grid.Row="1"
+                                               WidthRequest="30" FontSize="28"
+                                               TextColor="#e3000f" />
+                                        <forms1:CachedImage
+                                            Grid.Column="1"
+                                            Grid.Row="1"
+                                            VerticalOptions="CenterAndExpand"
+                                            HeightRequest="100"
+                                            WidthRequest="100"
+                                            Aspect="Fill"
+                                            HorizontalOptions="CenterAndExpand"
+                                            DownsampleToViewSize="True"
+                                            Source="{Binding ImageUrl}">
+                                        </forms1:CachedImage>
+                                    </Grid>
+                                </pancakeView:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+            </StackLayout>
+            <StackLayout Margin="0,-40,10,0">
+                <Label Padding="10" Text="Наши партнеры" TextColor="White" FontSize="Medium" />
+            </StackLayout>
+
+            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
+                <StackLayout Orientation="Horizontal" Padding="15">
+                    <Image Source="luminarc" Aspect="AspectFit" HeightRequest="60" WidthRequest="170" />
+                    <Image Source="korkmaz" Aspect="AspectFit" HeightRequest="50" WidthRequest="170" />
+                    <Image Source="dantela" Aspect="AspectFit" HeightRequest="50" WidthRequest="170" />
+                </StackLayout>
+            </ScrollView>
+            <StackLayout Margin="0,10,10,0">
+                <Label Padding="10" Text="История покупок" TextColor="White" FontSize="Medium" />
+            </StackLayout>
+            <Grid>
+                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsPurchaseLoading}"
+                                   VerticalOptions="Center" />
+                <StackLayout Spacing="0" Padding="6" BindableLayout.ItemsSource="{Binding PurchaseHistories}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout x:DataType="models:PurchaseHistory">
+                                <Frame HasShadow="True" CornerRadius="15" Margin="10,0,10,0"
+                                       BackgroundColor="#91b3df" Padding="5">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label HorizontalTextAlignment="Start" Text="{ Binding Date}" />
+                                    </StackLayout>
+                                </Frame>
+                                <StackLayout Margin="12,0,0,0" Spacing="0"
+                                             BindableLayout.ItemsSource="{Binding PurchaseDetails}">
+                                    <BindableLayout.ItemTemplate>
+                                        <DataTemplate>
+                                            <Frame Padding="0" CornerRadius="10" BackgroundColor="#90c7f0"
+                                                   Margin="15,3,15,3">
+                                                <StackLayout Orientation="Horizontal" Spacing="0" Padding="8"
+                                                             x:DataType="models:PurchaseDetail">
+                                                    <Label HorizontalTextAlignment="Center" HorizontalOptions="Start"
+                                                           VerticalOptions="CenterAndExpand" Text="{ Binding Name}" />
+                                                    <Label VerticalTextAlignment="Center" HorizontalTextAlignment="End"
+                                                           HorizontalOptions="EndAndExpand" FontAttributes="Bold"
+                                                           Text="{Binding Price, StringFormat='Цена: {0} смн'}" />
+                                                </StackLayout>
+                                            </Frame>
+                                        </DataTemplate>
+                                    </BindableLayout.ItemTemplate>
+                                </StackLayout>
+                            </StackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ScrollView>
+</abstractions:BaseContentPage>

@@ -1,0 +1,16 @@
+{
+  "images" : [
+    {
+      "filename" : "armugon.jpg",
+      "idiom" : "iphone"
+    },
+    {
+      "idiom" : "iphone",
+      "subtype" : "retina4"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

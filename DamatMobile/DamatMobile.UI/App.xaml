@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:helpers1="clr-namespace:DamatMobile.Ui.Helpers;assembly=DamatMobile.UI"
+             xmlns:resources="clr-namespace:DamatMobile.Ui.Resources;assembly=DamatMobile.UI"
+             x:Class="DamatMobile.Ui.App">
+    <Application.Resources>
+        <ResourceDictionary>
+            <helpers1:ViewModelLocator x:Key="ViewModelLocator" />
+            <ResourceDictionary.MergedDictionaries>
+                <resources:Styles />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
