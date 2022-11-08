@@ -38,7 +38,7 @@ namespace DamatMobile.Core.Services
         public Task RegisterUser(CustomerDto customerDto)
         {
             var customer = mapper.Map<Customer>(customerDto);
-            _appSettings.UserId = customer.id;
+            _appSettings.UserId = customer.Id;
             _appSettings.UserName = $"{customer.FirstName} {customer.LastName}";
             _customerRepository.Add(customer);
             return _customerRepository.SaveChangesAsync();

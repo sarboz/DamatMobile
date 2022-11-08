@@ -11,8 +11,11 @@ namespace DamatMobile.Core.Abstractions.Api
         [Get("/api/Customer/{customerId}")]
         public Task<CustomerDto> GetCustomerInfo(Guid customerId);
 
-        [Get("/api/Products/GetProducts")]
-        public Task<List<ProductDto>> GetProducts();
+        [Get("/api/Brand/GetAllBrands")]
+        public Task<List<BrandDto>> GetBrands();
+        
+        [Get("/api/News/GetNotExpired")]
+        public Task<List<NewsDto>> GetNews();
 
         [Get("/api/PurchaseHistory/GetPurchaseHistory/{customerId}")]
         public Task<List<PurchaseHistoryDto>> GetPurchaseHistory(Guid customerId);

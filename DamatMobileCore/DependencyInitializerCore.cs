@@ -32,18 +32,20 @@ namespace DamatMobile.Core
 
             //repositories
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>();
-            builder.RegisterType<ProductRepository>().As<IProductRepository>();
+            builder.RegisterType<BrandRepository>().As<IBrandRepository>();
             builder.RegisterType<VirtualCardRepository>().As<IVirtualCardRepository>();
             builder.RegisterType<PurchaseHistoryRepository>().As<IPurchaseHistoryRepository>();
+            builder.RegisterType<NewsRepository>().As<INewsRepository>();
 
             
             builder.RegisterType<NavigationService>().As<INavigationService>();
             builder.RegisterType<DependencyResolver>().As<IDependencyResolver>();
 
-            builder.RegisterType<ArmugonContext>().As<IArmugonContext>().SingleInstance().OnActivated(DatabaseCreating);
+            builder.RegisterType<DamatContext>().As<IArmugonContext>().SingleInstance().OnActivated(DatabaseCreating);
 
             //services
-            builder.RegisterType<ProductService>().As<IProductService>();
+            builder.RegisterType<BrandService>().As<IBrandService>();
+            builder.RegisterType<NewsService>().As<INewsService>();
             builder.RegisterType<CustomerService>().As<ICustomerService>();
             builder.RegisterType<AuthorizationService>().As<IAuthorizationService>();
 
@@ -56,7 +58,7 @@ namespace DamatMobile.Core
             return Container = builder.Build();
         }
 
-        private void DatabaseCreating(IActivatedEventArgs<ArmugonContext> obj)
+        private void DatabaseCreating(IActivatedEventArgs<DamatContext> obj)
         {
             try
             {

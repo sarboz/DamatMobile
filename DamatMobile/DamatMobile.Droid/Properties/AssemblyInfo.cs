@@ -9,10 +9,10 @@ using Android.App;
 [assembly: AssemblyTitle("DamatMobile.UI.Droid")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Impero/Armugon")]
+[assembly: AssemblyCompany("Damat|Tween")]
 [assembly: AssemblyProduct("DamatMobile.UI.Droid")]
-[assembly: AssemblyCopyright("Copyright © Impero/Armugon 2022")]
-[assembly: AssemblyTrademark("Impero/Armugon")]
+[assembly: AssemblyCopyright("Copyright © Damat|Tween 2022")]
+[assembly: AssemblyTrademark("Damat|Tween")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
 

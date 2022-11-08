@@ -35,6 +35,10 @@ namespace DamatMobile.Core.Services
         {
             return _navigationFacade.PopAsync();
         }
+        public Task PopPopupAsync()
+        {
+            return _navigationFacade.PopupPopAsync();
+        }
 
         public Task PushNavigationAsync<TViewModel>(TViewModel viewModel) where TViewModel : BaseViewModel
         {
@@ -61,6 +65,12 @@ namespace DamatMobile.Core.Services
             var view = _dependencyResolver.Resolve<IViewFor<TViewModel>>();
             ((IViewFor)view).ViewModel = viewModel;
             return view;
+        }
+        public Task PopupPushAsync<TViewModel>(params (string paramaterName, object value)[] parameters)
+            where TViewModel : BaseViewModel
+        {
+            var view = GetView<TViewModel>(parameters);
+            return _navigationFacade.PopupPushAsync(view);
         }
     }
 }

@@ -29,7 +29,7 @@
                 <forms:Button  WidthRequest="100" Command="{forms:Binding SubmitCommand}" Text="Отправить" />
             </forms:StackLayout>
             <forms:StackLayout forms:Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="Center">
-                <forms:Label Text="© 2022 Armugon" />
+                <forms:Label Text="© 2022 Damat|Tween" />
             </forms:StackLayout>
         </forms:Grid>
     </forms:ScrollView>

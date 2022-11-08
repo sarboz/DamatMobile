@@ -4,9 +4,9 @@ using DamatMobile.Core.Models;
 
 namespace DamatMobile.Core.Repositories
 {
-    public class ProductRepository:BaseRepository<Product>,IProductRepository
+    public class BrandRepository:BaseRepository<Brand>,IBrandRepository
     {
-        public ProductRepository(IArmugonContext context) : base(context)
+        public BrandRepository(IArmugonContext context) : base(context)
         {
         }
     }

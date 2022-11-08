@@ -4,9 +4,9 @@ using DamatMobile.Core.Models;
 
 namespace DamatMobile.Core.Abstractions.Services
 {
-    public interface IProductService
+    public interface IBrandService
     {
-        Task<List<Product>> GetProducts();
-        Task SyncProducts(List<Product> dtos);
+        Task<List<Brand>> GetBrands();
+        Task SyncBrands(List<Brand> brands);
     }
 }

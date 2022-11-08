@@ -18,7 +18,7 @@ namespace DamatMobile.Core.Repositories
 
         public Task<Customer> Get(Guid id)
         {
-            return _context.GetDbSet<Customer>().SingleAsync(customer => customer.id.Equals(id));
+            return _context.GetDbSet<Customer>().SingleAsync(customer => customer.Id.Equals(id));
         }
     }
 }
