@@ -72,10 +72,12 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidResource Include="Resources\drawable\icon.png">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\drawable\armugon.jpg" />
     <AndroidResource Include="Resources\drawable\card_background.jpg" />
     <AndroidResource Include="Resources\drawable\dantela.jpg" />
-    <AndroidResource Include="Resources\drawable\icon.png" />
     <AndroidResource Include="Resources\drawable\imperio.jpg" />
     <AndroidResource Include="Resources\drawable\korkmaz.jpg" />
     <AndroidResource Include="Resources\drawable\luminarc.jpg" />

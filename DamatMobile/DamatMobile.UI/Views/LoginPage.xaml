@@ -16,11 +16,11 @@
             <forms:StackLayout forms:Grid.Row="1" Margin="0,30,0,0">
                 <forms:Frame Margin="20,0,20,0" HasShadow="False" Padding="0" CornerRadius="5" BorderColor="#D8D8D8">
                     <forms:StackLayout HorizontalOptions="Center" Orientation="Horizontal" Spacing="0">
-                        <forms:Label Text="+992" VerticalTextAlignment="Center" />
+                        <forms:Label Text="+7" VerticalTextAlignment="Center" />
                         <forms:Entry HeightRequest="50" HorizontalTextAlignment="Start" Keyboard="Telephone"
                                      Text="{forms:Binding Phone.Value}" Placeholder="введите номер телефона">
                             <forms:Entry.Behaviors>
-                                <behaviors:MaskedBehavior Mask="AA-AAA-AA-AA" UnMaskedCharacter="A" />
+                                <behaviors:MaskedBehavior Mask="AAA-AAA-AAAA" UnMaskedCharacter="A" />
                             </forms:Entry.Behaviors>
                         </forms:Entry>
                     </forms:StackLayout>
