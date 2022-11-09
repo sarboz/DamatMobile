@@ -8,7 +8,9 @@ namespace DamatMobile.Core.Mappings
     {
         public Profiles()
         {
-            CreateMap<ProductDto, Product>();
+            CreateMap<NewsDto, News>();
+            CreateMap<BrandDto, Brand>();
+            CreateMap<BrandImageDto, BrandImage>();
             CreateMap<CustomerDto, Customer>();
             CreateMap<PurchaseHistoryDto, PurchaseHistory>();
             CreateMap<PurchaseDetailDto, PurchaseDetail>();

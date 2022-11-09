@@ -8,17 +8,17 @@
     NavigationPage.HasNavigationBar="False"
     x:TypeArguments="viewModels:HomeViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-   xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
+    xmlns:forms="clr-namespace:ZXing.Net.Mobile.Forms;assembly=ZXing.Net.Mobile.Forms"
     xmlns:common="clr-namespace:ZXing.Common;assembly=zxing.portable"
     xmlns:forms1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-        xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
-        xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
-        xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
-        xmlns:converters="clr-namespace:DamatMobile.Ui.Converters;assembly=DamatMobile.UI"
-        xmlns:controls="clr-namespace:DamatMobile.Ui.Controls;assembly=DamatMobile.UI"
-        xmlns:models="clr-namespace:DamatMobile.Core.Models;assembly=DamatMobile.Core"
-        xmlns:resources1="clr-namespace:DamatMobile.Ui.Resources;assembly=DamatMobile.UI"
-        x:Class="DamatMobile.Ui.Views.HomePage">
+    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+    xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+    xmlns:converters="clr-namespace:DamatMobile.Ui.Converters;assembly=DamatMobile.UI"
+    xmlns:controls="clr-namespace:DamatMobile.Ui.Controls;assembly=DamatMobile.UI"
+    xmlns:models="clr-namespace:DamatMobile.Core.Models;assembly=DamatMobile.Core"
+    xmlns:resources1="clr-namespace:DamatMobile.Ui.Resources;assembly=DamatMobile.UI"
+    x:Class="DamatMobile.Ui.Views.HomePage">
     <abstractions:BaseContentPage.Resources>
         <ResourceDictionary>
             <converters:UsernameFirstLaterConverter x:Key="UsernameFirstLaterConverter" />
@@ -73,10 +73,14 @@
                     Loop="False"
                     HeightRequest="200"
                     ItemsSource="{Binding Cards}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="10" SnapPointsType="MandatorySingle" Orientation="Horizontal"
+                                           SnapPointsAlignment="Start" />
+                    </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <controls:FlipView
-                                IsFlipped="{Binding Source={x:Reference This}, Path=ViewModel.IsFlipped}">
+                            <controls:FlipView Margin="10"
+                                               IsFlipped="{Binding Source={x:Reference This}, Path=ViewModel.IsFlipped}">
                                 <controls:FlipView.BackView>
                                     <Frame BackgroundColor="#04062C" x:DataType="models:VirtualCard" Margin="0"
                                            Padding="0"
@@ -168,7 +172,7 @@
                                                    Padding="0" TextColor="#1a1a18"
                                                    HorizontalOptions="Center"
                                                    VerticalOptions="Start"
-                                                   Text="Дисконтная карта" />
+                                                   Text="{Binding Name}" />
                                             <Label Grid.Row="2" Padding="0" TextColor="#1a1a18"
                                                    FontSize="16"
                                                    Margin="10,0,0,0"
@@ -225,48 +229,42 @@
                 <Label Padding="10" Text="Товары" TextColor="White" FontSize="Medium" />
             </StackLayout>
             <StackLayout HeightRequest="200">
-                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsProductLoading}"
+                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsBrandsLoading}"
                                    VerticalOptions="Center" />
                 <CarouselView
                     Margin="0,-40,0,40"
                     PeekAreaInsets="80"
                     Loop="False"
                     HorizontalScrollBarVisibility="Never"
-                    ItemsSource="{Binding Products}">
+                    ItemsSource="{Binding Brands}">
                     <CarouselView.ItemsLayout>
                         <LinearItemsLayout SnapPointsType="MandatorySingle" Orientation="Horizontal"
                                            SnapPointsAlignment="Start" />
                     </CarouselView.ItemsLayout>
                     <CarouselView.ItemTemplate>
                         <DataTemplate>
-                            <Grid RowSpacing="10" ColumnSpacing="0">
+                            <Grid RowSpacing="10" ColumnSpacing="0" x:DataType="models:Brand">
                                 <pancakeView:PancakeView
                                     Margin="10" Padding="0" CornerRadius="10"
                                     BackgroundGradientStartColor="#8691c8"
                                     BackgroundGradientEndColor="#9ed0f0"
                                     BackgroundGradientAngle="90">
-                                    <Grid ColumnDefinitions="*,*" RowDefinitions="30,*" x:DataType="models:Product">
-                                        <pancakeView:PancakeView Grid.Column="0" VerticalOptions="Start"
-                                                                 CornerRadius="0,4,0,4" BackgroundColor="White"
-                                                                 Margin="0,10,0,0">
-                                            <Label FontAttributes="Bold" Text="{Binding Name}" TextColor="#1a1a18"
-                                                   Padding="20,0,0,0" />
-                                        </pancakeView:PancakeView>
-                                        <Label Text="{Binding DiscountValue}" FontAttributes="Bold" Padding="10"
-                                               Grid.Row="1"
-                                               WidthRequest="30" FontSize="28"
-                                               TextColor="#e3000f" />
-                                        <forms1:CachedImage
-                                            Grid.Column="1"
-                                            Grid.Row="1"
-                                            VerticalOptions="CenterAndExpand"
-                                            HeightRequest="100"
-                                            WidthRequest="100"
-                                            Aspect="Fill"
-                                            HorizontalOptions="CenterAndExpand"
-                                            DownsampleToViewSize="True"
-                                            Source="{Binding ImageUrl}">
+                                    <Grid>
+                                        <forms1:CachedImage HeightRequest="200" WidthRequest="300"
+                                                            VerticalOptions="CenterAndExpand"
+                                                            Aspect="Fill" BackgroundColor="Cyan"
+                                                            HorizontalOptions="CenterAndExpand"
+                                                            DownsampleToViewSize="True"
+                                                            Source="{Binding Image}">
                                         </forms1:CachedImage>
+                                        <Grid  ColumnDefinitions="130">
+                                            <pancakeView:PancakeView VerticalOptions="Start"
+                                                                     CornerRadius="0,4,0,4" BackgroundColor="White"
+                                                                     Margin="0,10,0,0">
+                                                <Label FontAttributes="Bold" Text="{Binding Name}" TextColor="#1a1a18"
+                                                       Padding="20,0,0,0" />
+                                            </pancakeView:PancakeView>
+                                        </Grid>
                                     </Grid>
                                 </pancakeView:PancakeView>
                             </Grid>
@@ -275,17 +273,44 @@
                 </CarouselView>
             </StackLayout>
             <StackLayout Margin="0,-40,10,0">
-                <Label Padding="10" Text="Наши партнеры" TextColor="White" FontSize="Medium" />
+                <Label Padding="10" Text="Новости" TextColor="White" FontSize="Medium" />
+            </StackLayout>
+            <StackLayout HeightRequest="200">
+                <ActivityIndicator Color="{StaticResource PrimaryColor}" IsRunning="{Binding IsNewsLoading}"
+                                   VerticalOptions="Center" />
+                <CarouselView
+                    Margin="0,-40,0,40"
+                    PeekAreaInsets="80"
+                    Loop="False"
+                    HorizontalScrollBarVisibility="Never"
+                    ItemsSource="{Binding NewsList}">
+                    <CarouselView.ItemsLayout>
+                        <LinearItemsLayout SnapPointsType="MandatorySingle" Orientation="Horizontal"
+                                           SnapPointsAlignment="Start" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowSpacing="10" ColumnSpacing="0" x:DataType="models:News">
+                                <pancakeView:PancakeView
+                                    Margin="10" Padding="0" CornerRadius="10"
+                                    BackgroundGradientStartColor="#8691c8"
+                                    BackgroundGradientEndColor="#9ed0f0"
+                                    BackgroundGradientAngle="90">
+                                    <forms1:CachedImage HeightRequest="200" WidthRequest="300"
+                                                        VerticalOptions="CenterAndExpand"
+                                                        Aspect="Fill"
+                                                        HorizontalOptions="CenterAndExpand"
+                                                        DownsampleToViewSize="True"
+                                                        Source="{Binding ImageUrl}">
+                                    </forms1:CachedImage>
+                                </pancakeView:PancakeView>
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
             </StackLayout>
 
-            <ScrollView Orientation="Horizontal" HorizontalScrollBarVisibility="Never">
-                <StackLayout Orientation="Horizontal" Padding="15">
-                    <Image Source="luminarc" Aspect="AspectFit" HeightRequest="60" WidthRequest="170" />
-                    <Image Source="korkmaz" Aspect="AspectFit" HeightRequest="50" WidthRequest="170" />
-                    <Image Source="dantela" Aspect="AspectFit" HeightRequest="50" WidthRequest="170" />
-                </StackLayout>
-            </ScrollView>
-            <StackLayout Margin="0,10,10,0">
+            <StackLayout Margin="0,-40,10,0">
                 <Label Padding="10" Text="История покупок" TextColor="White" FontSize="Medium" />
             </StackLayout>
             <Grid>

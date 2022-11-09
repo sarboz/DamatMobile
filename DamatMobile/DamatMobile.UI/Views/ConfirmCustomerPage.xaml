@@ -22,7 +22,7 @@
             <Button Command="{Binding ConfirmCodeCommand}" Text="Вход" />
         </StackLayout>
         <StackLayout Grid.Row="2" VerticalOptions="EndAndExpand" HorizontalOptions="Center">
-            <Label Text="© 2022 Armugon" />
+            <Label Text="© 2022 Damat|Tween" />
         </StackLayout>
     </Grid>
 

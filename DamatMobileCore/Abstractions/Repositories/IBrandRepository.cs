@@ -2,7 +2,7 @@
 
 namespace DamatMobile.Core.Abstractions.Repositories
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface IBrandRepository:IRepository<Brand>
     {
         
     }

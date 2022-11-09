@@ -47,7 +47,7 @@ namespace DamatMobile.Core.Services
             if (customer is null)
                 Console.WriteLine("Customer is null");
 
-            var virtualCardDtos = await _apiEndpoints.GetCustomersVirtualCard(customer.id);
+            var virtualCardDtos = await _apiEndpoints.GetCustomersVirtualCard(customer.Id);
 
             Console.WriteLine("card feched " + virtualCardDtos[0].Name);
             var virtualCards = mapper.Map<List<VirtualCard>>(virtualCardDtos);
@@ -96,7 +96,7 @@ namespace DamatMobile.Core.Services
 
             cards.ForEach(item =>
             {
-                item.CustomerId = customer.id;
+                item.CustomerId = customer.Id;
                 _virtualCardRepository.Add(item);
             });
             await _virtualCardRepository.SaveChangesAsync();

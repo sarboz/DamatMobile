@@ -23,6 +23,7 @@ namespace DamatMobile.Droid
             base.OnCreate(savedInstanceState);
             FirebaseApp.InitializeApp(this);
             
+            Rg.Plugins.Popup.Popup.Init(this);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             CachedImageRenderer.Init(true);
             CachedImageRenderer.InitImageViewHandler();
@@ -43,6 +44,10 @@ namespace DamatMobile.Droid
             Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults);
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+        public override void OnBackPressed()
+        {
+            Rg.Plugins.Popup.Popup.SendBackPressed(base.OnBackPressed);
         }
     }
 }

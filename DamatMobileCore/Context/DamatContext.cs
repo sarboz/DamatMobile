@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DamatMobile.Core.Context
 {
-    public class ArmugonContext : DbContext, IArmugonContext
+    public class DamatContext : DbContext, IArmugonContext
     {
         private readonly IDatabasePathProvider _pathProvider;
 
-        public ArmugonContext(IDatabasePathProvider pathProvider)
+        public DamatContext(IDatabasePathProvider pathProvider)
         {
             _pathProvider = pathProvider;
         }
@@ -19,7 +19,9 @@ namespace DamatMobile.Core.Context
         public DbSet<Customer> Customers { get; set; }
         public DbSet<PurchaseDetail> PurchaseDetails { get; set; }
         public DbSet<PurchaseHistory> PurchaseHistories { get; set; }
-        public DbSet<Product> Products { get; set; }
+        public DbSet<Brand> Brands { get; set; }
+        public DbSet<BrandImage> BrandsImages { get; set; }
+        public DbSet<News> News { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -45,6 +47,11 @@ namespace DamatMobile.Core.Context
             modelBuilder.Entity<PurchaseHistory>().HasMany(customer => customer.PurchaseDetails)
                 .WithOne(detail => detail.PurchaseHistory)
                 .HasForeignKey(detail => detail.PurchaseHistoryId)
+                .OnDelete(DeleteBehavior.Cascade);
+                
+            modelBuilder.Entity<Brand>().HasMany(brand => brand.BrandImages)
+                .WithOne(brand => brand.Brand)
+                .HasForeignKey(detail => detail.BrandId)
                 .OnDelete(DeleteBehavior.Cascade);
 
             base.OnModelCreating(modelBuilder);

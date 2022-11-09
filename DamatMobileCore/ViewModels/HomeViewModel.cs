@@ -12,14 +12,16 @@ namespace DamatMobile.Core.ViewModels
 {
     public class HomeViewModel : BaseViewModel
     {
-        private readonly IProductService _productService;
+        private readonly IBrandService _brandService;
         private readonly ICustomerService _customerService;
+        private readonly INewsService _newsService;
         private readonly IAuthorizationService _authorizationService;
         private readonly INavigationService _navigationService;
         private bool _isFlipped;
-        private bool _isProductLoading;
+        private bool _isBrandsLoading;
         private bool _isCardLoading;
         private bool _isPurchaseLoading;
+        private bool _isNewsLoading;
 
         public bool IsFlipped
         {
@@ -29,31 +31,39 @@ namespace DamatMobile.Core.ViewModels
 
         public string Username { get; set; }
 
-        public ObservableCollection<Product> Products { get; set; } = new();
+        public ObservableCollection<Brand> Brands { get; set; } = new();
         public ObservableCollection<PurchaseHistory> PurchaseHistories { get; set; } = new();
+        public ObservableCollection<News> NewsList { get; set; } = new();
         public ObservableCollection<VirtualCard> Cards { get; set; } = new();
         public ReactiveCommand<Unit, Unit> RefreshCommand { get; }
         public ReactiveCommand<Unit, Unit> CardLoadCommand { get; }
-        public ReactiveCommand<Unit, Unit> ProductsLoadCommand { get; }
+        public ReactiveCommand<Unit, Unit> BrandsLoadCommand { get; }
+        public ReactiveCommand<Unit, Unit> NewsLoadCommand { get; }
         public ReactiveCommand<Unit, Unit> PurchaseLoadCommand { get; }
         public ReactiveCommand<Unit, Unit> FlipCommand { get; set; }
         public ReactiveCommand<Unit, Unit> LogoutCommand { get; set; }
         public ReactiveCommand<Unit, Unit> NotificationCommand { get; set; }
         public ReactiveCommand<Unit, Unit> RegisterTokenCommand { get; }
 
-        public HomeViewModel(IDialogService dialogService, IProductService productService,
-            ICustomerService customerService, IAppSettings settings, IAuthorizationService authorizationService, INavigationService navigationService) : base(dialogService)
+        public HomeViewModel(IDialogService dialogService, IBrandService brandService,
+            ICustomerService customerService, 
+            INewsService newsService,
+            IAppSettings settings,
+            IAuthorizationService authorizationService, 
+            INavigationService navigationService) : base(dialogService)
         {
-            _productService = productService;
+            _brandService = brandService;
             _customerService = customerService;
+            _newsService = newsService;
             _authorizationService = authorizationService;
             _navigationService = navigationService;
             Username = settings.UserName;
 
             RefreshCommand = ReactiveCommand.CreateFromTask(Refresh);
+            NewsLoadCommand = ReactiveCommand.CreateFromTask(LoadNews);
             CardLoadCommand = ReactiveCommand.CreateFromTask(LoadCard);
             PurchaseLoadCommand = ReactiveCommand.CreateFromTask(LoadPurchase);
-            ProductsLoadCommand = ReactiveCommand.CreateFromTask(LoadProducts);
+            BrandsLoadCommand = ReactiveCommand.CreateFromTask(LoadProducts);
             LogoutCommand = ReactiveCommand.Create(Logout);
             RegisterTokenCommand = ReactiveCommand.CreateFromTask(() => _authorizationService.RegisterToken());
             NotificationCommand =
@@ -61,8 +71,18 @@ namespace DamatMobile.Core.ViewModels
             
             FlipCommand = ReactiveCommand.Create(Flip);
 
-            CatchObservableExceptions(NotificationCommand,ProductsLoadCommand, RefreshCommand, FlipCommand, RegisterTokenCommand, PurchaseLoadCommand,
+            CatchObservableExceptions(NewsLoadCommand,NotificationCommand,BrandsLoadCommand, RefreshCommand, FlipCommand, RegisterTokenCommand, PurchaseLoadCommand,
                 CardLoadCommand);
+        }
+
+        private async Task LoadNews()
+        {
+            IsNewsLoading = true;
+            NewsList.Clear();
+            var  newsList = await _newsService.GetNews();
+            NewsList.AddRange(newsList);
+            await _newsService.SyncNews(newsList);
+            IsNewsLoading = false;
         }
 
         private Task NavigateToNotificationPage()
@@ -76,12 +96,17 @@ namespace DamatMobile.Core.ViewModels
             _navigationService.InitMainPage();
         }
 
-        public bool IsProductLoading
+        public bool IsBrandsLoading
         {
-            get => _isProductLoading;
-            set => this.RaiseAndSetIfChanged(ref _isProductLoading, value);
+            get => _isBrandsLoading;
+            set => this.RaiseAndSetIfChanged(ref _isBrandsLoading, value);
         }
 
+        public bool IsNewsLoading
+        {
+            get => _isNewsLoading;
+            set => this.RaiseAndSetIfChanged(ref _isNewsLoading, value);
+        }
         public bool IsCardLoading
         {
             get => _isCardLoading;
@@ -106,12 +131,12 @@ namespace DamatMobile.Core.ViewModels
 
         private async Task LoadProducts()
         {
-            IsProductLoading = true;
-            Products.Clear();
-            var products = await _productService.GetProducts();
-            Products.AddRange(products);
-            await _productService.SyncProducts(products);
-            IsProductLoading = false;
+            IsBrandsLoading = true;
+            Brands.Clear();
+            var products = await _brandService.GetBrands();
+            Brands.AddRange(products);
+            await _brandService.SyncBrands(products);
+            IsBrandsLoading = false;
         }
 
         private async Task LoadCard()
@@ -132,8 +157,9 @@ namespace DamatMobile.Core.ViewModels
         private Task Refresh()
         {
             PurchaseLoadCommand.Execute();
+            NewsLoadCommand.Execute();
             CardLoadCommand.Execute();
-            ProductsLoadCommand.Execute();
+            BrandsLoadCommand.Execute();
             return Task.CompletedTask;
         }
 
