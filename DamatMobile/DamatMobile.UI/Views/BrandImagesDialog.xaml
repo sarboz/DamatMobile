@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BasePopupPage x:TypeArguments="viewModels:BrandImagesViewModel" xmlns="http://xamarin.com/schemas/2014/forms"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                            xmlns:abstractions="clr-namespace:DamatMobile.Ui.Abstractions;assembly=DamatMobile.UI"
+                            xmlns:viewModels="clr-namespace:DamatMobile.Core.ViewModels;assembly=DamatMobile.Core"
+                            x:Class="DamatMobile.Ui.Views.BrandImagesDialog">
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Hello, world!"
+                   VerticalOptions="CenterAndExpand"
+                   HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</abstractions:BasePopupPage>

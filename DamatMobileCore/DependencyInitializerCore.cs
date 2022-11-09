@@ -29,6 +29,7 @@ namespace DamatMobile.Core
             builder.RegisterType<LoginViewModel>().AsSelf();
             builder.RegisterType<ConfirmCustomerViewModel>().AsSelf();
             builder.RegisterType<NotificationViewModel>().AsSelf();
+            builder.RegisterType<BrandImagesViewModel>().AsSelf();
 
             //repositories
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>();

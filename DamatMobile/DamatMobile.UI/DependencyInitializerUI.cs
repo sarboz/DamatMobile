@@ -23,6 +23,7 @@ namespace DamatMobile.Ui
             builder.RegisterType<LoginPage>().As<IViewFor<LoginViewModel>>();
             builder.RegisterType<ConfirmCustomerPage>().As<IViewFor<ConfirmCustomerViewModel>>();
             builder.RegisterType<NotificationPage>().As<IViewFor<NotificationViewModel>>();
+            builder.RegisterType<BrandImagesDialog>().As<IViewFor<BrandImagesViewModel>>();
         }
     }
 }

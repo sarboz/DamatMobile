@@ -5,10 +5,10 @@ using Xamarin.Forms;
 
 namespace DamatMobile.Ui.Abstractions
 {
-    public abstract class BasePopupContentPage<TViewModel> : PopupPage, IViewFor<TViewModel>
+    public abstract class BasePopupPage<TViewModel> : PopupPage, IViewFor<TViewModel>
         where TViewModel : BaseViewModel
     {
-        protected BasePopupContentPage()
+        protected BasePopupPage()
         {
             Visual = VisualMarker.Material;
         }
